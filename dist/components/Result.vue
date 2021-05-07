@@ -7,7 +7,7 @@
          {{ text }}
       </div>
 
-      <i />
+      <i class="v-select-result-close" />
    </div>
 </template>
 
@@ -37,20 +37,24 @@
    };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .v-select-result {
    border: 1px solid #c7c7c7;
    border-radius: 3px;
    padding: 6px 30px 6px 10px;
    cursor: pointer;
+
    &.-open {
       border-radius: 3px 3px 0 0;
-      i {
+      &.-top {
+         border-radius: 0 0 3px 3px;
+      }
+      .v-select-result-close {
          margin-top: -12px;
          transform: rotate(181deg);
       }
    }
-   i {
+   &-close {
       width: auto;
       position: absolute;
       right: 10px;
@@ -70,6 +74,7 @@
       }
    }
    &-text {
+      cursor: default;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

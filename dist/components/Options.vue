@@ -1,6 +1,9 @@
 <template>
    <div class="v-select-wrapper">
-      <ul v-if="options && options.length">
+      <ul
+         v-if="options && options.length"
+         :style="listStyle"
+         >
          <li
             v-for="(option, key) in options"
             :key="key"
@@ -44,6 +47,10 @@
          isShow: {
             type: Boolean,
             default: false
+         },
+         listStyle: {
+            type: String,
+            default: ''
          }
       },
       data() {
@@ -59,7 +66,7 @@
    };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .v-select-wrapper {
    position: absolute;
    left: 0;
@@ -68,10 +75,25 @@
    box-sizing: border-box;
    border: 1px solid #c7c7c7;
    border-radius: 0 0 3px 3px;
+   background-color: #fff;
+   z-index: 100;
+
+   &.-top {
+      top: auto;
+      bottom: calc(100% - 1px);
+      border-radius: 3px 3px 0 0;
+   }
+   &:not(.-show) {
+      visibility: hidden;
+      ul {
+         height: 0;
+      }
+   }
    ul {
       margin: 0;
       padding: 0;
       list-style-type: none;
+      overflow-y: auto;
       li {
          padding: 6px 10px;
          cursor: pointer;
