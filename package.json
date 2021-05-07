@@ -1,0 +1,66 @@
+{
+  "name": "vue2-select",
+  "version": "1.0.0",
+  "description": "Vue.js select",
+  "author": "Tatyana Zherebtsova <zherebtsova.ti@gmail.com>",
+  "paths": {
+    "source": "src",
+    "destination": "dist"
+  },
+  "private": false,
+  "main": "dist/vue2-select.js",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "npm run build",
+    "serve": "webpack-dev-server --config build/webpack.dev.config.js --hot --progress -d",
+    "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.config.js --progress",
+    "lint": "eslint --fix --ext .js,.vue dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Misandra/vue2-select"
+  },
+  "peerDependencies": {
+    "vue": "2.x"
+  },
+  "keywords": [
+    "vue",
+    "select",
+    "dropdown"
+  ],
+  "devDependencies": {
+    "@babel/core": "~7.2",
+    "@babel/plugin-proposal-class-properties": "~7.3",
+    "@babel/plugin-proposal-decorators": "~7.3",
+    "@babel/plugin-proposal-json-strings": "~7.2",
+    "@babel/plugin-syntax-dynamic-import": "~7.2",
+    "@babel/plugin-syntax-import-meta": "~7.2",
+    "@babel/polyfill": "~7.2",
+    "@babel/preset-env": "~7.3",
+    "@vue/eslint-config-airbnb": "^5.1.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-array-includes": "^2.0.3",
+    "cross-env": "^5.2.0",
+    "css-loader": "^2.1.1",
+    "eslint": "^7.4.0",
+    "eslint-import-resolver-webpack": "^0.12.2",
+    "eslint-plugin-vue": "^7.0.0-alpha.9",
+    "node-sass": "^4.10.0",
+    "path": "^0.12.7",
+    "sass-loader": "^7.1.0",
+    "sass-resources-loader": "^2.0.0",
+    "style-loader": "^0.23.1",
+    "vue": "^2.6.8",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.3.0",
+    "webpack-merge": "^4.2.1"
+  },
+  "bugs": {
+    "url": "https://github.com/Misandra/vue2-select/issues"
+  },
+  "homepage": "https://github.com/Misandra/vue2-select#readme"
+}
