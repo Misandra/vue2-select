@@ -18,7 +18,7 @@
             <slot
                name="arrow"
                :is_show="prop.is_show"
-            />
+               />
          </template>
       </result>
       <options
@@ -96,7 +96,7 @@
          emptyText: {
             type: String,
             default: 'No elements'
-         },
+         }
       },
       data() {
          return {

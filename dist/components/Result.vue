@@ -80,12 +80,11 @@
       height: 100%;
 
       &-ico {
-         width: auto;
-         position: absolute;
-         right: 10px;
-         top: 50%;
-         margin-top: -5px;
-         transition: all .2s;
+         display: block;
+         width: 30px;
+         text-align: center;
+         position: relative;
+         height: 100%;
 
          &:before {
             border-color: #333;
@@ -97,11 +96,16 @@
             width: 5px;
             vertical-align: top;
             transform: rotate(133deg);
+            transition: all .2s;
+            position: relative;
+            top: 11px;
          }
 
          &.-open {
-            margin-top: -12px;
-            transform: rotate(181deg);
+            &:before {
+               transform: rotate(315deg);
+               top: 14px;
+            }
          }
       }
    }
