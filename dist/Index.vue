@@ -6,9 +6,21 @@
       <result
          :data="data_values"
          :placeholder="placeholder"
-         :class="{'-open': is_show, '-top': open_top}"
+         :is-show="is_show"
+         :open-top="open_top"
          @open="open"
-         />
+         >
+         <template
+            v-if="$scopedSlots['arrow']"
+            slot="arr"
+            slot-scope="prop"
+            >
+            <slot
+               name="arrow"
+               :is_show="prop.is_show"
+            />
+         </template>
+      </result>
       <options
          v-show="is_show"
          :data="data"

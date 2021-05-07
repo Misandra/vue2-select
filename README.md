@@ -119,3 +119,28 @@ This is the scoped slot to create custom option template.
 
 - ##### selected
 [Boolean] - selection flag
+
+---
+
+### Arrow
+This is the scoped slot to create custom arrow template.
+
+```vue
+<template>
+    <v2-select :options="options">
+      <template
+         slot="arrow"
+         slot-scope="prop">
+         <i
+            class="arrow"
+            :class="{'-up': prop.is_show}" />
+      </template>
+    </v2-select>
+</template>
+```
+
+#### properties
+
+- ##### is_show
+
+[Object] - dropdown show/hide flag
