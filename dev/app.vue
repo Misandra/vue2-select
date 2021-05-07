@@ -11,6 +11,7 @@
             :options="options"
             name-key="title"
             placeholder="Select book..."
+            drop-height="200"
             />
       </div>
    </div>
@@ -43,7 +44,7 @@ html {
    margin-bottom: 20px;
 }
 
-.demo .v-select {
+.v-select {
    width: 300px;
 }
 </style>
