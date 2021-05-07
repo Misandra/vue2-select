@@ -11,14 +11,13 @@
             :options="options"
             name-key="title"
             placeholder="Select book..."
-            drop-height="200"
             />
       </div>
    </div>
 </template>
 
 <script>
-   import books from "./books";
+   import books from './books';
 
    export default {
       data() {

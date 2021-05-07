@@ -27,7 +27,7 @@ Vue.component("v2-select", vue2select);
 | bottom-indent | [Number, String] | Bottom indent of dropdown | 20 | bottom-indent="20" |
 | open-top | Boolean | Open dropdown to top | false | :open-top="true" |
 
-## Example
+### Example
 
 ```vue
 <template>
@@ -90,3 +90,32 @@ Vue.component("v2-select", vue2select);
    }
 </script>
 ```
+
+## Templating
+You can create custom templates for some selectors.
+
+### Option
+This is the scoped slot to create custom option template.
+
+```vue
+<template>
+    <v2-select :options="options">
+      <template
+         slot="option"
+         slot-scope="prop">
+         <input
+            type="checkbox"
+            :checked="prop.selected" />
+         {{ prop.item.title}}
+      </template>
+    </v2-select>
+</template>
+```
+
+#### properties
+
+- ##### item
+[Object] - option item (from property "options")
+
+- ##### selected
+[Boolean] - selection flag

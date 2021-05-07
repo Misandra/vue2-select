@@ -21,10 +21,7 @@ module.exports = {
         "vue/require-default-prop": "off",
         "prefer-destructuring": ["error", { "array": false }],
         "radix": ["error", "as-needed"],
-        "import/no-unresolved": [
-            1,
-            { "caseSensitive": false }
-        ],
+        "import/no-unresolved": "off",
         "indent": ["error", 3, {"SwitchCase": 1}],
         "max-len": ["error", { "code": 120, "ignoreUrls": true }],
         "no-console": process.env.NODE_ENV === "production" ? "error" : ["error", { "allow": ["error"] }],

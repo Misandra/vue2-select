@@ -1,5 +1,8 @@
 <template>
-   <div class="v-select-wrapper">
+   <div
+      class="v-select-wrapper"
+      :class="{'-show': isShow, '-top': openTop}"
+      >
       <ul
          v-if="options && options.length"
          :style="listStyle"
@@ -10,7 +13,13 @@
             :class="{'-selected': data === option[$props.idKey]}"
             @click.prevent="select(option[$props.idKey])"
             >
-            {{ option[$props.nameKey] }}
+            <slot
+               name="option-container"
+               :option="option"
+               :selected="data === option[$props.idKey]"
+               >
+               {{ option[$props.nameKey] }}
+            </slot>
          </li>
       </ul>
       <div
@@ -51,6 +60,10 @@
          listStyle: {
             type: String,
             default: ''
+         },
+         openTop: {
+            type: Boolean,
+            default: false
          }
       },
       methods: {

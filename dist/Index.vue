@@ -11,14 +11,27 @@
          />
       <options
          v-show="is_show"
-         :class="{'-show': is_show, '-top': open_top}"
          :data="data"
          :options="options"
          :name-key="nameKey"
          :id-key="idKey"
          :list-style="list_style"
+         :is-show="is_show"
+         :open-top="open_top"
          @select="select"
-         />
+         >
+         <template
+            v-if="$scopedSlots['option']"
+            slot="option-container"
+            slot-scope="props"
+            >
+            <slot
+               name="option"
+               :item="props.option"
+               :selected="props.selected"
+               />
+         </template>
+      </options>
    </div>
 </template>
 
