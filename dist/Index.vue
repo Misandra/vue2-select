@@ -30,6 +30,7 @@
          :list-style="list_style"
          :is-show="is_show"
          :open-top="open_top"
+         :empty-text="emptyText"
          @select="select"
          >
          <template
@@ -91,7 +92,11 @@
          openTop: {
             type: Boolean,
             default: false
-         }
+         },
+         emptyText: {
+            type: String,
+            default: 'No elements'
+         },
       },
       data() {
          return {

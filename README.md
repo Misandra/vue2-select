@@ -26,6 +26,7 @@ Vue.component("v2-select", vue2select);
 | drop-height | [Number, String] | Dropdown height | 300 | drop-height="500" |
 | bottom-indent | [Number, String] | Bottom indent of dropdown | 20 | bottom-indent="20" |
 | open-top | Boolean | Open dropdown to top | false | :open-top="true" |
+| empty-text | Sting | Empty options text | "No elements" | empty-text="Oops!" |
 
 ### Example
 
@@ -39,6 +40,7 @@ Vue.component("v2-select", vue2select);
        drop-height="200"
        bottom-indent="10"
        open-top
+       empty-text="No any book"
      />
 </template>
 

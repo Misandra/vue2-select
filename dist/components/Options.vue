@@ -26,7 +26,7 @@
          v-else
          class="v-select-empty"
          >
-         No elements
+         {{ emptyText }}
       </div>
    </div>
 </template>
@@ -64,6 +64,10 @@
          openTop: {
             type: Boolean,
             default: false
+         },
+         emptyText: {
+            type: String,
+            default: 'No elements'
          }
       },
       methods: {
@@ -75,46 +79,54 @@
 </script>
 
 <style lang="scss">
-.v-select-wrapper {
-   position: absolute;
-   left: 0;
-   top: calc(100% - 1px);
-   width: 100%;
-   box-sizing: border-box;
-   border: 1px solid #c7c7c7;
-   border-radius: 0 0 3px 3px;
-   background-color: #fff;
-   z-index: 100;
+.v-select {
+   &-wrapper {
+      position: absolute;
+      left: 0;
+      top: calc(100% - 1px);
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #c7c7c7;
+      border-radius: 0 0 3px 3px;
+      background-color: #fff;
+      z-index: 100;
 
-   &.-top {
-      top: auto;
-      bottom: calc(100% - 1px);
-      border-radius: 3px 3px 0 0;
-   }
-   &:not(.-show) {
-      visibility: hidden;
+      &.-top {
+         top: auto;
+         bottom: calc(100% - 1px);
+         border-radius: 3px 3px 0 0;
+      }
+      &:not(.-show) {
+         visibility: hidden;
+         ul {
+            height: 0;
+         }
+      }
       ul {
-         height: 0;
+         margin: 0;
+         padding: 0;
+         list-style-type: none;
+         overflow-y: auto;
+         li {
+            padding: 6px 10px;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &.-selected {
+               background-color: #f1f1f1;
+            }
+            &:hover {
+               background-color: #f9f9f9;
+            }
+         }
       }
    }
-   ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-      overflow-y: auto;
-      li {
-         padding: 6px 10px;
-         cursor: pointer;
-         white-space: nowrap;
-         overflow: hidden;
-         text-overflow: ellipsis;
-         &.-selected {
-            background-color: #f1f1f1;
-         }
-         &:hover {
-            background-color: #f9f9f9;
-         }
-      }
+
+   &-empty {
+      text-align: center;
+      color: #bbbbbb;
+      padding: 6px 10px;
    }
 }
 </style>
