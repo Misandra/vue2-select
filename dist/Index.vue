@@ -21,30 +21,39 @@
                />
          </template>
       </result>
-      <options
-         v-show="is_show"
-         :data="data"
-         :options="options"
-         :name-key="nameKey"
-         :id-key="idKey"
-         :list-style="list_style"
-         :is-show="is_show"
-         :open-top="open_top"
-         :empty-text="emptyText"
-         @select="select"
+      <div
+         class="v-select-dropdown"
+         :class="{'-show': is_show, '-top': open_top}"
          >
-         <template
-            v-if="$scopedSlots['option']"
-            slot="option-container"
-            slot-scope="props"
+         <options
+            v-if="options && options.length"
+            v-show="is_show"
+            :data="data"
+            :options="options"
+            :name-key="nameKey"
+            :id-key="idKey"
+            :list-style="list_style"
+            @select="select"
             >
-            <slot
-               name="option"
-               :item="props.option"
-               :selected="props.selected"
-               />
-         </template>
-      </options>
+            <template
+               v-if="$scopedSlots['option']"
+               slot="option-container"
+               slot-scope="props"
+               >
+               <slot
+                  name="option"
+                  :item="props.option"
+                  :selected="props.selected"
+                  />
+            </template>
+         </options>
+         <div
+            v-else
+            class="v-select-empty"
+            >
+            {{ emptyText }}
+         </div>
+      </div>
    </div>
 </template>
 
@@ -217,5 +226,54 @@
 .v-select {
    width: fit-content;
    position: relative;
+
+   &-dropdown {
+      position: absolute;
+      left: 0;
+      top: calc(100% - 1px);
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #c7c7c7;
+      border-radius: 0 0 3px 3px;
+      background-color: #fff;
+      z-index: 100;
+
+      &.-top {
+         top: auto;
+         bottom: calc(100% - 1px);
+         border-radius: 3px 3px 0 0;
+      }
+      &:not(.-show) {
+         visibility: hidden;
+         ul {
+            height: 0;
+         }
+      }
+      ul {
+         margin: 0;
+         padding: 0;
+         list-style-type: none;
+         overflow-y: auto;
+         li {
+            padding: 6px 10px;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &.-selected {
+               background-color: #f1f1f1;
+            }
+            &:hover {
+               background-color: #f9f9f9;
+            }
+         }
+      }
+   }
+
+   &-empty {
+      text-align: center;
+      color: #bbbbbb;
+      padding: 6px 10px;
+   }
 }
 </style>
