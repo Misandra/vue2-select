@@ -4,9 +4,9 @@
          v-for="(option, key) in options"
          >
          <li
-            v-if="pagination ? (key < page * itemPerPage && key > (page-1) * itemPerPage) : true"
+            v-if="pagination ? (key <= page * itemPerPage && key >= (page - 1) * itemPerPage) : true"
             :key="key"
-            :class="{'-selected': data === option[$props.idKey]}"
+            :class="{'-selected': multiple ? data.includes(option[$props.idKey]) : data === option[$props.idKey]}"
             @click.prevent="select(option[$props.idKey])"
             >
             <slot
@@ -26,7 +26,7 @@
       name: 'Options',
       props: {
          data: {
-            type: [String, Number],
+            type: [String, Number, Array],
             default: ''
          },
          options: {
@@ -58,11 +58,26 @@
          page: {
             type: Number,
             default: 1
+         },
+         multiple: {
+            type: Boolean,
+            default: false
          }
       },
       methods: {
          select(id) {
-            this.$emit('select', id);
+            if (this.multiple) {
+               const data = this.data.slice(0);
+               if (data.includes(id)) {
+                  const index = data.indexOf(id);
+                  data.splice(index, 1);
+               } else {
+                  data.push(id);
+               }
+               this.$emit('select', data);
+            } else {
+               this.$emit('select', id);
+            }
          }
       }
    };

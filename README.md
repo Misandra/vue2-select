@@ -30,6 +30,7 @@ Vue.component("v2-select", vue2select);
 | search | Boolean | Show/hide search | false | :search="true" |
 | pagination | Boolean | Show/hide pagination | false | :pagination="true" |
 | item-per-page | [Number, String] | Quantity of items per page | 10 | item-per-page="30" |
+| multiple | Boolean | Multiple selection | false | :multiple="true" |
 
 ### Example
 
@@ -44,6 +45,7 @@ Vue.component("v2-select", vue2select);
        bottom-indent="10"
        open-top
        search
+       multiple
        pagination
        empty-text="No any book"
        item-per-page="20"

@@ -4,11 +4,15 @@
       class="v-select"
       >
       <result
-         :data="data_values"
+         :selected-options="selected_options"
          :placeholder="placeholder"
          :is-show="is_show"
          :open-top="open_top"
+         :multiple="multiple"
+         :id-key="idKey"
+         :name-key="nameKey"
          @open="open"
+         @removeItem="removeItem"
          >
          <template
             v-if="$scopedSlots['arrow']"
@@ -41,6 +45,7 @@
             :page="page"
             :pagination="pagination"
             :item-per-page="item_per_page"
+            :multiple="multiple"
             @select="select"
             >
             <template
@@ -124,7 +129,7 @@
       },
       props: {
          value: {
-            type: [String, Number],
+            type: [String, Number, Array],
             default: ''
          },
          options: {
@@ -172,6 +177,10 @@
          itemPerPage: {
             type: [Number, String],
             default: 10
+         },
+         multiple: {
+            type: Boolean,
+            default: false
          }
       },
       data() {
@@ -190,10 +199,6 @@
          };
       },
       computed: {
-         data_values() {
-            const result_value = this.options.find((option) => this.data === option[this.idKey]);
-            return result_value ? result_value[this.nameKey] : '';
-         },
          search_options() {
             return this.options.reduce((arr, item) => {
                const text = item[this.nameKey].toLowerCase();
@@ -203,6 +208,24 @@
                }
                return arr;
             }, []);
+         },
+         selected_options() {
+            if (!this.multiple) {
+               const arr = [];
+               const option = this.options.find((i) => i[this.idKey] === this.data);
+               if (option) {
+                  arr.push(option);
+               }
+               return arr;
+            }
+            const data = JSON.parse(JSON.stringify(this.data));
+            return data.length ? data.reduce((arr, item) => {
+               const option = this.options.find((i) => i[this.idKey] === item);
+               if (option) {
+                  arr.push(option);
+               }
+               return arr;
+            }, []) : [];
          }
       },
       watch: {
@@ -253,7 +276,11 @@
             this.change_window = true;
          },
          getData() {
-            this.data = this.value;
+            if (this.multiple && !Array.isArray(this.value)) {
+               this.data = [];
+            } else {
+               this.data = this.value;
+            }
             const numbers = ['dropHeight', 'bottomIndent', 'itemPerPage'];
             numbers.forEach((name) => {
                if (Number.isNaN(Number(this[name]))) {
@@ -263,9 +290,11 @@
                }
             });
          },
-         select(id) {
-            this.data = id;
-            this.is_show = false;
+         select(data) {
+            this.data = data;
+            if (!this.multiple) {
+               this.is_show = false;
+            }
          },
          open() {
             this.is_show = !this.is_show;
@@ -302,6 +331,12 @@
                .split(/ |\B(?=[A-Z])/)
                .map((word) => word.toLowerCase())
                .join('-');
+         },
+         removeItem(item) {
+            const id = item[this.idKey];
+            const option = this.data.find((i) => i === id);
+            const index = this.data.indexOf(option);
+            this.data.splice(index, 1);
          }
       }
    };

@@ -13,6 +13,7 @@
             placeholder="Select book..."
             pagination
             search
+            multiple
             />
       </div>
    </div>
@@ -24,7 +25,7 @@
    export default {
       data() {
          return {
-            value: '',
+            value: [],
             options: books
          };
       }
