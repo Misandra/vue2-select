@@ -66,7 +66,44 @@
             ref="pagination"
             v-model="page"
             :items-count="q ? search_options.length : options.length"
-            />
+            >
+            <template
+               v-if="$slots['first']"
+               slot="pagination-first"
+               >
+               <slot name="first" />
+            </template>
+            <template
+               v-if="$slots['prev']"
+               slot="pagination-prev"
+               >
+               <slot name="prev" />
+            </template>
+            <template
+               v-if="$scopedSlots['pages']"
+               slot="pagination-pages"
+               slot-scope="props"
+               >
+               <slot
+                  name="pages"
+                  :page="props.page"
+                  :count="props.count"
+                  :change="props.change"
+                  />
+            </template>
+            <template
+               v-if="$slots['next']"
+               slot="pagination-next"
+               >
+               <slot name="next" />
+            </template>
+            <template
+               v-if="$slots['last']"
+               slot="pagination-last"
+               >
+               <slot name="last" />
+            </template>
+         </pagination>
       </div>
    </div>
 </template>

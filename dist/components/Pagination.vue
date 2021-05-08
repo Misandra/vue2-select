@@ -6,17 +6,30 @@
             :disabled="page === 1"
             @click.prevent="getPage(1)"
             >
-            <span>&#9204;</span><span>&#9204;</span>
+            <slot name="pagination-first">
+               <span>&#9204;</span><span>&#9204;</span>
+            </slot>
          </a>
          <a
             href=""
             :disabled="page === 1"
             @click.prevent="getBack"
-            >&#9204;</a>
+            >
+            <slot name="pagination-prev">
+               <span>&#9204;</span>
+            </slot>
+         </a>
       </div>
 
       <div class="v-select-page">
-         {{ page }} / {{ pages }}
+         <slot
+            name="pagination-pages"
+            :page="page"
+            :count="pages"
+            :change="changePage"
+            >
+            {{ page }} / {{ pages }}
+         </slot>
       </div>
 
       <div class="v-select-next">
@@ -24,13 +37,17 @@
             href=""
             :disabled="page === pages"
             @click.prevent="getNext"
-            >&#9205;</a>
+            >
+            <slot name="pagination-next">&#9205;</slot>
+         </a>
          <a
             href=""
             :disabled="page === pages"
             @click.prevent="getPage(pages)"
             >
-            <span>&#9205;</span><span>&#9205;</span>
+            <slot name="pagination-lase">
+               <span>&#9205;</span><span>&#9205;</span>
+            </slot>
          </a>
       </div>
    </div>
@@ -88,8 +105,23 @@
                this.page++;
             }
          },
+         changePage(data) {
+            const input = data;
+            const value = input.target.value;
+            if (value) {
+               if (!Number.isNaN(Number(value))) {
+                  this.getPage(Number(value));
+               } else {
+                  input.target.value = this.page;
+               }
+            }
+         },
          getPage(number) {
-            if (number > 0 && number <= this.pages) {
+            if (number <= 0) {
+               this.page = 1;
+            } else if (number > this.pages) {
+               this.page = this.pages;
+            } else {
                this.page = number;
             }
          }
