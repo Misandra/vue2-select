@@ -1,6 +1,6 @@
 {
   "name": "@misandra/vue2-select",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vue.js select",
   "author": "Tatyana Zherebtsova <zherebtsova.ti@gmail.com>",
   "paths": {

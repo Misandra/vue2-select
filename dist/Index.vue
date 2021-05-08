@@ -25,11 +25,16 @@
          class="v-select-dropdown"
          :class="{'-show': is_show, '-top': open_top}"
          >
+         <search
+            v-if="search"
+            ref="search"
+            v-model="q"
+            />
          <options
-            v-if="options && options.length"
+            v-if="q ? search_options.length : options.length"
             v-show="is_show"
             :data="data"
-            :options="options"
+            :options="q ? search_options : options"
             :name-key="nameKey"
             :id-key="idKey"
             :list-style="list_style"
@@ -59,10 +64,11 @@
 
 <script>
    import result from './components/Result.vue';
+   import search from './components/Search.vue';
    import options from './components/Options.vue';
 
    export default {
-      components: { result, options },
+      components: { result, search, options },
       model: {
          prop: 'value',
          event: 'change'
@@ -105,6 +111,10 @@
          emptyText: {
             type: String,
             default: 'No elements'
+         },
+         search: {
+            type: Boolean,
+            default: false
          }
       },
       data() {
@@ -116,13 +126,24 @@
             change_window: false,
             bottom_indent: 20,
             open_top: false,
-            list_style: ''
+            list_style: '',
+            q: ''
          };
       },
       computed: {
          data_values() {
             const result_value = this.options.find((option) => this.data === option[this.idKey]);
             return result_value ? result_value[this.nameKey] : '';
+         },
+         search_options() {
+            return this.options.reduce((arr, item) => {
+               const text = item[this.nameKey].toLowerCase();
+               const q = this.q.toLowerCase();
+               if (text.match(q)) {
+                  arr.push(item);
+               }
+               return arr;
+            }, []);
          }
       },
       watch: {
@@ -144,6 +165,8 @@
          is_show(bool) {
             if (bool) {
                this.setListStyle();
+            } else {
+               this.q = '';
             }
          }
       },
@@ -192,15 +215,16 @@
             const select_top = select.getBoundingClientRect().top;
             if (this.top !== select_top || this.change_window) {
                const select_height = select.offsetHeight;
+               const search_height = this.search ? this.$refs.search.$el.offsetHeight : 0;
                const bottom_height = window.innerHeight - (select_top + select_height) - this.bottom_indent;
                const top_height = select.getBoundingClientRect().top - this.bottom_indent;
                this.open_top = this.openTop
                   ? this.openTop : bottom_height < this.drop_height && top_height > bottom_height;
-               const max_height = (this.open_top ? top_height : bottom_height);
+               const max_height = (this.open_top ? top_height : bottom_height) - search_height;
                if (max_height < this.drop_height) {
                   this.list_style = `height:${max_height}px`;
                } else {
-                  this.list_style = `height:${this.drop_height}px`;
+                  this.list_style = `height:${this.drop_height - search_height}px`;
                }
                this.top = select_top;
                this.change_window = false;
