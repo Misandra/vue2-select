@@ -173,18 +173,21 @@ This is the scoped slot to create custom remove ico template.
 
 ---
 
-### Pagination pages
-This is the scoped slot to create custom pagination pages template.
+### Pagination
+This is the scoped slot to create custom pagination template.
 
 ```vue
 <template>
     <v2-select :options="options">
-      <template
-         slot="pages"
+     <template
+         slot="pagination"
          slot-scope="prop">
-         <input @input="prop.change" :value="prop.page" />
-         {{prop.page}} of {{prop.count}}
-      </template>
+         <a href="/" @click.prevent="prop.first">first</a>
+         <a href="/" @click.prevent="prop.prev">prev</a>
+         <input @input="prop.change" :value="prop.page" /> / of {{prop.count}}
+         <a href="/" @click.prevent="prop.next">next</a>
+         <a href="/" @click.prevent="prop.last">last</a>
+     </template>
     </v2-select>
 </template>
 ```
@@ -201,71 +204,13 @@ This is the scoped slot to create custom pagination pages template.
 
 #### events
 
-- ##### change
+- **change()** - change active page
 
-Change active page
+- **first()** - go to first page
 
+- **last()** - go to last page
 
----
+- **prev()** - go to previous page
 
-### Pagination first-page button
-This is the scoped slot to create custom pagination button template.
+- **next()** - go to next page
 
-```vue
-<template>
-    <v2-select :options="options">
-      <template
-         slot="first">
-            First page
-      </template>
-    </v2-select>
-</template>
-```
-
----
-
-### Pagination last-page button
-This is the scoped slot to create custom pagination button template.
-
-```vue
-<template>
-    <v2-select :options="options">
-      <template
-         slot="last">
-            Last page
-      </template>
-    </v2-select>
-</template>
-```
-
----
-
-### Pagination previous-page button
-This is the scoped slot to create custom pagination button template.
-
-```vue
-<template>
-    <v2-select :options="options">
-      <template
-         slot="prev">
-            Back
-      </template>
-    </v2-select>
-</template>
-```
-
----
-
-### Pagination next-page button
-This is the scoped slot to create custom pagination button template.
-
-```vue
-<template>
-    <v2-select :options="options">
-      <template
-         slot="next">
-            Next
-      </template>
-    </v2-select>
-</template>
-```

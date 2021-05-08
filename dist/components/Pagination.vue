@@ -1,55 +1,51 @@
 <template>
    <div class="v-select-pagination">
-      <div class="v-select-prev">
-         <a
-            href=""
-            :disabled="page === 1"
-            @click.prevent="getPage(1)"
-            >
-            <slot name="pagination-first">
+      <slot
+         name="pagination-pages"
+         :first="getFirst"
+         :prev="getBack"
+         :next="getNext"
+         :last="getLast"
+         :page="page"
+         :count="pages"
+         :change="changePage"
+         >
+         <div class="v-select-prev">
+            <a
+               href=""
+               :disabled="page === 1"
+               @click.prevent="getPage(1)"
+               >
                <span>&#9204;</span><span>&#9204;</span>
-            </slot>
-         </a>
-         <a
-            href=""
-            :disabled="page === 1"
-            @click.prevent="getBack"
-            >
-            <slot name="pagination-prev">
+            </a>
+            <a
+               href=""
+               :disabled="page === 1"
+               @click.prevent="getBack"
+               >
                <span>&#9204;</span>
-            </slot>
-         </a>
-      </div>
-
-      <div class="v-select-page">
-         <slot
-            name="pagination-pages"
-            :page="page"
-            :count="pages"
-            :change="changePage"
-            >
+            </a>
+         </div>
+         <div class="v-select-page">
             {{ page }} / {{ pages }}
-         </slot>
-      </div>
-
-      <div class="v-select-next">
-         <a
-            href=""
-            :disabled="page === pages"
-            @click.prevent="getNext"
-            >
-            <slot name="pagination-next">&#9205;</slot>
-         </a>
-         <a
-            href=""
-            :disabled="page === pages"
-            @click.prevent="getPage(pages)"
-            >
-            <slot name="pagination-lase">
+         </div>
+         <div class="v-select-next">
+            <a
+               href=""
+               :disabled="page === pages"
+               @click.prevent="getNext"
+               >
+               <span>&#9205;</span>
+            </a>
+            <a
+               href=""
+               :disabled="page === pages"
+               @click.prevent="getPage(pages)"
+               >
                <span>&#9205;</span><span>&#9205;</span>
-            </slot>
-         </a>
-      </div>
+            </a>
+         </div>
+      </slot>
    </div>
 </template>
 
@@ -124,6 +120,12 @@
             } else {
                this.page = number;
             }
+         },
+         getFirst() {
+            this.getPage(1);
+         },
+         getLast() {
+            this.getPage(this.pages);
          }
       }
    };

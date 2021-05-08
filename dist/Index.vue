@@ -85,40 +85,20 @@
             :items-count="q ? search_options.length : options.length"
             >
             <template
-               v-if="$slots['first']"
-               slot="pagination-first"
-               >
-               <slot name="first" />
-            </template>
-            <template
-               v-if="$slots['prev']"
-               slot="pagination-prev"
-               >
-               <slot name="prev" />
-            </template>
-            <template
-               v-if="$scopedSlots['pages']"
+               v-if="$scopedSlots['pagination']"
                slot="pagination-pages"
                slot-scope="props"
                >
                <slot
-                  name="pages"
+                  name="pagination"
+                  :first="props.first"
+                  :prev="props.prev"
+                  :next="props.next"
+                  :last="props.last"
                   :page="props.page"
                   :count="props.count"
                   :change="props.change"
                   />
-            </template>
-            <template
-               v-if="$slots['next']"
-               slot="pagination-next"
-               >
-               <slot name="next" />
-            </template>
-            <template
-               v-if="$slots['last']"
-               slot="pagination-last"
-               >
-               <slot name="last" />
             </template>
          </pagination>
       </div>
