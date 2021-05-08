@@ -11,6 +11,8 @@
             :options="options"
             name-key="title"
             placeholder="Select book..."
+            pagination
+            search
             />
       </div>
    </div>

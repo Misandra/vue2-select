@@ -38,6 +38,9 @@
             :name-key="nameKey"
             :id-key="idKey"
             :list-style="list_style"
+            :page="page"
+            :pagination="pagination"
+            :item-per-page="item_per_page"
             @select="select"
             >
             <template
@@ -58,6 +61,12 @@
             >
             {{ emptyText }}
          </div>
+         <pagination
+            v-if="pagination"
+            ref="pagination"
+            v-model="page"
+            :items-count="q ? search_options.length : options.length"
+            />
       </div>
    </div>
 </template>
@@ -66,9 +75,12 @@
    import result from './components/Result.vue';
    import search from './components/Search.vue';
    import options from './components/Options.vue';
+   import pagination from './components/Pagination.vue';
 
    export default {
-      components: { result, search, options },
+      components: {
+         result, search, options, pagination
+      },
       model: {
          prop: 'value',
          event: 'change'
@@ -115,6 +127,14 @@
          search: {
             type: Boolean,
             default: false
+         },
+         pagination: {
+            type: Boolean,
+            default: false
+         },
+         itemPerPage: {
+            type: [Number, String],
+            default: 10
          }
       },
       data() {
@@ -127,7 +147,9 @@
             bottom_indent: 20,
             open_top: false,
             list_style: '',
-            q: ''
+            q: '',
+            item_per_page: 10,
+            page: 1
          };
       },
       computed: {
@@ -167,6 +189,7 @@
                this.setListStyle();
             } else {
                this.q = '';
+               this.page = 1;
             }
          }
       },
@@ -194,7 +217,7 @@
          },
          getData() {
             this.data = this.value;
-            const numbers = ['dropHeight', 'bottomIndent'];
+            const numbers = ['dropHeight', 'bottomIndent', 'itemPerPage'];
             numbers.forEach((name) => {
                if (Number.isNaN(Number(this[name]))) {
                   console.error(`Option error: "${this._toKebabCase(name)}" must be number or number in string`);
@@ -216,15 +239,16 @@
             if (this.top !== select_top || this.change_window) {
                const select_height = select.offsetHeight;
                const search_height = this.search ? this.$refs.search.$el.offsetHeight : 0;
+               const pages_height = this.pagination ? this.$refs.pagination.$el.offsetHeight : 0;
                const bottom_height = window.innerHeight - (select_top + select_height) - this.bottom_indent;
                const top_height = select.getBoundingClientRect().top - this.bottom_indent;
                this.open_top = this.openTop
                   ? this.openTop : bottom_height < this.drop_height && top_height > bottom_height;
-               const max_height = (this.open_top ? top_height : bottom_height) - search_height;
+               const max_height = (this.open_top ? top_height : bottom_height) - search_height - pages_height;
                if (max_height < this.drop_height) {
                   this.list_style = `height:${max_height}px`;
                } else {
-                  this.list_style = `height:${this.drop_height - search_height}px`;
+                  this.list_style = `height:${this.drop_height - search_height - pages_height}px`;
                }
                this.top = select_top;
                this.change_window = false;
