@@ -1,8 +1,10 @@
 <template>
    <div
       class="v-select-search"
+      :class="{'-top': !multiple}"
       >
       <input
+         ref="input"
          v-model="q"
          type="text"
          >
@@ -20,6 +22,14 @@
          value: {
             type: String,
             default: ''
+         },
+         multiple: {
+            type: Boolean,
+            default: false
+         },
+         isShow: {
+            type: Boolean,
+            default: false
          }
       },
       data() {
@@ -37,6 +47,11 @@
             if (now || before) {
                this.q = now;
             }
+         },
+         isShow(bool) {
+            if (bool) {
+               this.$refs.input.focus();
+            }
          }
       },
       mounted() {
@@ -50,6 +65,25 @@
    padding: 10px;
    border-bottom: 1px solid #c7c7c7;
    position: relative;
+
+   &.-top {
+      position: absolute;
+      left: 0;
+      bottom: 100%;
+      padding: 0;
+      width: calc(100% - 30px);
+      cursor: pointer;
+
+      &:before {
+         display: none;
+      }
+
+      input {
+         padding: 7px 10px;
+         border: none;
+         background: none;
+      }
+   }
 
    &:before {
       position: absolute;

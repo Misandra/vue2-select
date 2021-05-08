@@ -5,7 +5,7 @@
       >
       <div
          class="v-select-result-text"
-         :class="{'-min': !multiple}"
+         :class="{'-min': !multiple, '-opacity': !hasText && is_opacity, '-hide': hasText && is_opacity}"
          >
          <template v-if="multiple">
             <div
@@ -24,12 +24,20 @@
                </span>
             </div>
          </template>
-         <template v-else>
+         <div
+            v-else
+            class="v-select-result-text__text"
+            @click.prevent="open"
+            >
             {{ text }}
-         </template>
-         <template v-if="!selectedOptions.length">
+         </div>
+         <div
+            v-if="!selectedOptions.length"
+            class="v-select-result-text__empty"
+            @click.prevent="open"
+            >
             {{ placeholder }}
-         </template>
+         </div>
       </div>
 
       <div
@@ -82,6 +90,14 @@
          nameKey: {
             type: String,
             default: 'name'
+         },
+         search: {
+            type: Boolean,
+            default: false
+         },
+         hasText: {
+            type: Boolean,
+            default: false
          }
       },
       computed: {
@@ -91,6 +107,9 @@
                data = this.selectedOptions[0][this.idKey];
             }
             return data || '';
+         },
+         is_opacity() {
+            return !this.multiple && this.search && this.isShow;
          }
       },
       methods: {
@@ -167,6 +186,21 @@
          white-space: nowrap;
          overflow: hidden;
          text-overflow: ellipsis;
+      }
+      &.-opacity {
+         opacity: .6;
+      }
+
+      &.-hide {
+         opacity: 0;
+      }
+
+      &__empty {
+         cursor: pointer;
+         opacity: .6;
+      }
+      &__text {
+         cursor: pointer;
       }
    }
 

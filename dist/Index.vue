@@ -9,6 +9,8 @@
          :is-show="is_show"
          :open-top="open_top"
          :multiple="multiple"
+         :search="search"
+         :has-text="!!q"
          :id-key="idKey"
          :name-key="nameKey"
          @open="open"
@@ -39,6 +41,8 @@
             v-if="search"
             ref="search"
             v-model="q"
+            :multiple="multiple"
+            :is-show="is_show"
             />
          <options
             v-if="q ? search_options.length : options.length"
@@ -306,7 +310,7 @@
             const select_top = select.getBoundingClientRect().top;
             if (this.top !== select_top || this.change_window) {
                const select_height = select.offsetHeight;
-               const search_height = this.search ? this.$refs.search.$el.offsetHeight : 0;
+               const search_height = this.search && this.multiple ? this.$refs.search.$el.offsetHeight : 0;
                const pages_height = this.pagination ? this.$refs.pagination.$el.offsetHeight : 0;
                const bottom_height = window.innerHeight - (select_top + select_height) - this.bottom_indent;
                const top_height = select.getBoundingClientRect().top - this.bottom_indent;
