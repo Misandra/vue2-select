@@ -1,5 +1,6 @@
 .DS_Store
 .idea/
+.husky
 node_modules/
 package-lock.json
 dist/vue2-select.js

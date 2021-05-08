@@ -10,12 +10,20 @@
   "private": false,
   "main": "dist/vue2-select.js",
   "license": "MIT",
+  "lint-staged": {
+    "dist/**/*.{js,vue}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "scripts": {
     "prepare": "npm run build",
     "serve": "webpack-dev-server --config build/webpack.dev.config.js --hot --progress -d",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.config.js --progress",
     "lint": "eslint --fix --ext .js,.vue dist",
-    "lint:dev": "eslint --fix --ext .js,.vue dev"
+    "lint:dev": "eslint --fix --ext .js,.vue dev",
+    "husky": "npx husky install && npm run husky:commit",
+    "husky:commit": "npx husky add .husky/pre-commit \"lint-staged\""
   },
   "repository": {
     "type": "git",
@@ -47,6 +55,8 @@
     "eslint": "^7.4.0",
     "eslint-import-resolver-webpack": "^0.12.2",
     "eslint-plugin-vue": "^7.0.0-alpha.9",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "node-sass": "^4.10.0",
     "path": "^0.12.7",
     "sass-loader": "^7.1.0",
