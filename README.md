@@ -183,7 +183,7 @@ This is the scoped slot to create custom pagination pages template.
 
 #### events
 
-- ### change
+- #### change
 
 Change active page
 
