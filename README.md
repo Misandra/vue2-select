@@ -132,8 +132,8 @@ This is the scoped slot to create custom option template.
 
 ---
 
-### Arrow
-This is the scoped slot to create custom arrow template.
+### Arrow ico
+This is the scoped slot to create custom arrow ico template.
 
 ```vue
 <template>
@@ -154,6 +154,22 @@ This is the scoped slot to create custom arrow template.
 - ##### is_show
 
 [Object] - dropdown show/hide flag
+
+---
+
+### Remove ico
+This is the scoped slot to create custom remove ico template.
+
+```vue
+<template>
+    <v2-select :options="options">
+      <template
+         slot="remove">
+         x
+      </template>
+    </v2-select>
+</template>
+```
 
 ---
 

@@ -24,6 +24,12 @@
                :is_show="prop.is_show"
                />
          </template>
+         <template
+            v-if="$slots['remove']"
+            slot="remove-ico"
+            >
+            <slot name="remove" />
+         </template>
       </result>
       <div
          class="v-select-dropdown"

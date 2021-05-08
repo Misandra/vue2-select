@@ -16,10 +16,12 @@
                <div class="v-select-result-tag-text">
                   {{ item[$props.nameKey] }}
                </div>
-               <i
+               <span
                   class="v-select-result-clear"
                   @click.stop.prevent="remove(item[$props.idKey])"
-                  />
+                  >
+                  <slot name="remove-ico" />
+               </span>
             </div>
          </template>
          <template v-else>
@@ -207,6 +209,8 @@
       right: 0;
       top: 0;
       cursor: pointer;
+      text-align: center;
+      line-height: 23px;
    }
 }
 </style>
