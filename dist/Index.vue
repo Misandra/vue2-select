@@ -338,6 +338,10 @@
 .v-select {
    width: fit-content;
    position: relative;
+   font-size: 14px;
+   line-height: 1.2;
+   font-family: Arial, sans-serif;
+   color: #333;
 
    &-dropdown {
       position: absolute;

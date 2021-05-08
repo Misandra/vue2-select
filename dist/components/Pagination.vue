@@ -138,20 +138,20 @@
    justify-content: space-between;
    padding: 6px 10px;
    color: #757575;
-}
 
-a {
-   text-decoration: none;
-   color: #2e2e2e;
+   a {
+      text-decoration: none;
+      color: #333;
 
-   &[disabled] {
-      cursor: default;
-      pointer-events: none;
-      opacity: .6;
-   }
+      &[disabled] {
+         cursor: default;
+         pointer-events: none;
+         opacity: .6;
+      }
 
-   span + span {
-      margin-left: -11px;
+      span + span {
+         margin-left: -9px;
+      }
    }
 }
 </style>
