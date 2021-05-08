@@ -69,12 +69,10 @@
             if (this.multiple) {
                const data = this.data.slice(0);
                if (data.includes(id)) {
-                  const index = data.indexOf(id);
-                  data.splice(index, 1);
+                  this.$emit('remove', id);
                } else {
-                  data.push(id);
+                  this.$emit('add', id);
                }
-               this.$emit('select', data);
             } else {
                this.$emit('select', id);
             }

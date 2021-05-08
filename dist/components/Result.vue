@@ -18,7 +18,7 @@
                </div>
                <i
                   class="v-select-result-clear"
-                  @click.stop.prevent="removeItem(item)"
+                  @click.stop.prevent="remove(item[$props.idKey])"
                   />
             </div>
          </template>
@@ -95,8 +95,8 @@
          open() {
             this.$emit('open');
          },
-         removeItem(item) {
-            this.$emit('removeItem', item);
+         remove(item) {
+            this.$emit('remove', item);
          }
       }
    };

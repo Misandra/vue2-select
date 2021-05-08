@@ -12,7 +12,7 @@
          :id-key="idKey"
          :name-key="nameKey"
          @open="open"
-         @removeItem="removeItem"
+         @remove="removeItem"
          >
          <template
             v-if="$scopedSlots['arrow']"
@@ -46,7 +46,9 @@
             :pagination="pagination"
             :item-per-page="item_per_page"
             :multiple="multiple"
-            @select="select"
+            @select="selectItem"
+            @add="addItem"
+            @remove="removeItem"
             >
             <template
                v-if="$scopedSlots['option']"
@@ -290,12 +292,6 @@
                }
             });
          },
-         select(data) {
-            this.data = data;
-            if (!this.multiple) {
-               this.is_show = false;
-            }
-         },
          open() {
             this.is_show = !this.is_show;
          },
@@ -332,11 +328,17 @@
                .map((word) => word.toLowerCase())
                .join('-');
          },
-         removeItem(item) {
-            const id = item[this.idKey];
+         selectItem(data) {
+            this.data = data;
+            this.is_show = false;
+         },
+         removeItem(id) {
             const option = this.data.find((i) => i === id);
             const index = this.data.indexOf(option);
             this.data.splice(index, 1);
+         },
+         addItem(id) {
+            this.data.push(id);
          }
       }
    };
