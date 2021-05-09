@@ -104,7 +104,7 @@
          text() {
             let data = '';
             if (!this.multiple && this.selectedOptions.length) {
-               data = this.selectedOptions[0][this.idKey];
+               data = this.selectedOptions[0][this.nameKey];
             }
             return data || '';
          },

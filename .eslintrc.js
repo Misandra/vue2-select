@@ -2,6 +2,7 @@ module.exports = {
     root: true,
     env: {
         browser: true,
+        "jest/globals": true
     },
     extends: [
         "plugin:vue/recommended",
@@ -48,25 +49,6 @@ module.exports = {
     parserOptions: {
         parser: "babel-eslint",
     },
-    globals: {
-        "ga": false,
-        "diff": false,
-        "uniq": false,
-        "clone": false,
-        "isEqual": false,
-        "queryString": false,
-        "formatNumber": false,
-        "SITE_URL": false,
-        "api": false,
-        "downloadBlob": false,
-        "cleanObject": false,
-        "plural": false,
-        "numberFormat": false,
-        "httpService": false,
-        "debounce": false,
-        "dateFormat": false,
-        "ym": false
-    },
     overrides: [
         {
             files: ["*.vue"],
@@ -80,5 +62,6 @@ module.exports = {
     ],
     settings: {
         "import/resolver": "webpack"
-    }
+    },
+    plugins: ["jest"]
 };

@@ -12,6 +12,7 @@
   "license": "MIT",
   "lint-staged": {
     "dist/**/*.{js,vue}": [
+      "jest --findRelatedTests",
       "eslint --fix"
     ]
   },
@@ -22,7 +23,8 @@
     "lint": "eslint --fix --ext .js,.vue dist",
     "lint:dev": "eslint --fix --ext .js,.vue dev",
     "husky": "npx husky install && npm run husky:commit",
-    "husky:commit": "npx husky add .husky/pre-commit \"lint-staged\""
+    "husky:commit": "npx husky add .husky/pre-commit \"lint-staged\"",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -41,14 +43,20 @@
     "@babel/polyfill": "~7.2",
     "@babel/preset-env": "~7.3",
     "@vue/eslint-config-airbnb": "^5.1.0",
+    "@vue/test-utils": "^1.2.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.1.0",
     "babel-loader": "^8.0.5",
     "babel-plugin-array-includes": "^2.0.3",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "eslint": "^7.4.0",
+    "eslint-import-resolver-webpack": "^0.13.0",
+    "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-vue": "^7.0.0-alpha.9",
     "husky": "^6.0.0",
+    "jest": "^26.1.0",
     "lint-staged": "^11.0.0",
     "node-sass": "^4.10.0",
     "path": "^0.12.7",
@@ -56,11 +64,39 @@
     "sass-resources-loader": "^2.0.0",
     "style-loader": "^0.23.1",
     "vue": "^2.6.8",
+    "vue-jest": "^3.0.6",
     "vue-loader": "^15.7.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.3.0",
     "webpack-merge": "^4.2.1"
+  },
+  "jest": {
+    "projects": [
+      {
+        "displayName": "test",
+        "moduleFileExtensions": [
+          "vue",
+          "js"
+        ],
+        "testMatch": [
+          "<rootDir>/dist/**/*.spec.js"
+        ],
+        "transform": {
+          ".*\\.(vue)$": "vue-jest",
+          "^.+\\.(js|jsx)?$": "babel-jest"
+        },
+        "transformIgnorePatterns": [
+          "<rootDir>/node_modules/"
+        ],
+        "moduleNameMapper": {
+          "^@/(.*)$": "<rootDir>/dist/$1"
+        },
+        "collectCoverageFrom": [
+          "<rootDir>/dist/**/*.{vue,js}"
+        ]
+      }
+    ]
   },
   "bugs": {
     "url": "https://github.com/Misandra/vue2-select/issues"
