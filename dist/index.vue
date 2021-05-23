@@ -7,7 +7,7 @@
          :selected-options="selected_options"
          :placeholder="placeholder"
          :is-show="is_show"
-         :open-top="open_top"
+         :open-top="open_top || openTop"
          :multiple="multiple"
          :search="search"
          :has-text="!!q"
@@ -35,10 +35,10 @@
       </result>
       <div
          class="v-select-dropdown"
-         :class="{'-show': is_show, '-top': open_top}"
+         :class="{'-show': is_show, '-top': open_top || openTop}"
          >
          <search
-            v-if="search"
+            v-if="search && options"
             ref="search"
             v-model="q"
             :multiple="multiple"
@@ -79,7 +79,7 @@
             {{ emptyText }}
          </div>
          <pagination
-            v-if="pagination"
+            v-if="show_pagination"
             ref="pagination"
             v-model="page"
             :items-count="q ? search_options.length : options.length"
@@ -218,6 +218,10 @@
                }
                return arr;
             }, []) : [];
+         },
+         show_pagination() {
+            return this.pagination
+               && this[this.q ? 'search_options' : 'options'].length > this.item_per_page;
          }
       },
       watch: {
@@ -298,9 +302,9 @@
                   ? this.openTop : bottom_height < this.drop_height && top_height > bottom_height;
                const max_height = (this.open_top ? top_height : bottom_height) - search_height - pages_height;
                if (max_height < this.drop_height) {
-                  this.list_style = `height:${max_height}px`;
+                  this.list_style = `max-height:${max_height}px`;
                } else {
-                  this.list_style = `height:${this.drop_height - search_height - pages_height}px`;
+                  this.list_style = `max-height:${this.drop_height - search_height - pages_height}px`;
                }
                this.top = select_top;
                this.change_window = false;

@@ -1,10 +1,13 @@
 <template>
-   <ul :style="listStyle">
+   <ul
+      class="v-select-options"
+      :style="listStyle"
+      >
       <template
          v-for="(option, key) in options"
          >
          <li
-            v-if="pagination ? (key <= page * itemPerPage && key >= (page - 1) * itemPerPage) : true"
+            v-if="pagination ? (key < page * itemPerPage && key >= (page - 1) * itemPerPage) : true"
             :key="key"
             :class="{'-selected': multiple ? data.includes(option[$props.idKey]) : data === option[$props.idKey]}"
             @click.prevent="select(option[$props.idKey])"
